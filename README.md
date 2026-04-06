@@ -45,5 +45,3 @@ The system is divided into three main components:
 - NumPy
 
 ---
-
-## 📂 Project Structure
