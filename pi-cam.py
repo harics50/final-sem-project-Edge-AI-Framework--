@@ -2,7 +2,7 @@ import cv2
 import time
 from ultralytics import YOLO
 
-# Load your trained model
+# Load trained model
 model = YOLO("best9.pt")   # or best9.onnx if using ONNX
 
 # Pi stream URL
@@ -10,7 +10,7 @@ PI_STREAM = "http://192.168.29.188:5000"
 
 cap = cv2.VideoCapture(PI_STREAM)
 
-# Reduce buffering (important for latency)
+# Reduce buffering
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
 #  Create large window
@@ -28,7 +28,7 @@ while True:
     for _ in range(2):
         cap.read()
 
-    # YOLO inference
+    # inference
     results = model(frame, imgsz=416, conf=0.5, verbose=False)
 
     # Draw results

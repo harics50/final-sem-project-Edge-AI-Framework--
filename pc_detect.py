@@ -2,18 +2,18 @@ import cv2
 import time
 from ultralytics import YOLO
 
-# 🔥 Load your trained model
+# trained model
 model = YOLO("best9.pt")   # or best9.onnx if using ONNX
 
-# 🔥 Pi stream URL
+#Pi stream URL
 PI_STREAM = "http://192.168.137.2:5000"
 
 cap = cv2.VideoCapture(PI_STREAM)
 
-# 🔥 Reduce buffering (important for latency)
+#Reduce buffering
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
-# 🔥 Create large window
+#to Create large window
 cv2.namedWindow("Crack Detection", cv2.WINDOW_NORMAL)
 cv2.resizeWindow("Crack Detection", 1280, 720)
 
@@ -24,17 +24,17 @@ while True:
     if not ret:
         continue
 
-    # 🔥 Skip old frames to reduce lag
+    #Skip frames
     for _ in range(2):
         cap.read()
 
-    # 🔥 YOLO inference
+    #inference
     results = model(frame, imgsz=416, conf=0.5, verbose=False)
 
     # Draw results
     frame = results[0].plot()
 
-    # 🔥 FPS calculation
+    #FPS calculation
     curr_time = time.time()
     fps = 1 / (curr_time - prev_time)
     prev_time = curr_time
